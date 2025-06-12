@@ -1,0 +1,30 @@
+﻿@model PenRealm.Models.Chapter
+@{
+    ViewData["Title"] = "Chapter Details";
+}
+
+<h2>@Model.Title</h2>
+
+<div class="mb-4">
+    <strong>Novel:</strong>
+    <a asp-controller="Novels" asp-action="Details" asp-route-id="@Model.NovelId">
+        @Model.Novel?.Title
+    </a>
+</div>
+
+<div class="mb-4">
+    <strong>Created At:</strong>
+    @Model.CreatedAt.ToString("yyyy-MM-dd HH:mm")
+</div>
+
+<div class="mb-5">
+    <p>@Html.Raw(Model.Content?.Replace("\n", "<br />"))</p>
+</div>
+
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a>
+    <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Delete</a>
+    <a asp-controller="Novels" asp-action="Details" asp-route-id="@Model.NovelId" class="btn btn-secondary">Back to Novel</a>
+</div>
+
+

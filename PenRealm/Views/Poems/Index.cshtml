@@ -1,0 +1,44 @@
+﻿@model IEnumerable<PenRealm.Models.Poem>
+@{
+    ViewData["Title"] = "My Poems";
+}
+
+<h2>My Poems</h2>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">➕ New Poem</a>
+</p>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info">You haven't written any poems yet.</div>
+}
+else
+{
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Created</th>
+                <th>Public</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var poem in Model)
+            {
+                <tr>
+                    <td>@poem.Title</td>
+                    <td>@poem.CreatedAt.ToString("yyyy-MM-dd")</td>
+                    <td>@(poem.IsPublic ? "Yes" : "No")</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@poem.Id" class="btn btn-sm btn-warning">Edit</a>
+                        <form asp-action="Delete" asp-route-id="@poem.Id" method="post" class="d-inline">
+                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

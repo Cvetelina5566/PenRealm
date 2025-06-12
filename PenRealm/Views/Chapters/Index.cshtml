@@ -1,0 +1,43 @@
+﻿@model IEnumerable<PenRealm.Models.Chapter>
+@{
+    ViewData["Title"] = "Chapters";
+    var novelId = ViewBag.NovelId;
+    var novelTitle = ViewBag.NovelTitle as string;
+}
+
+<h2>Chapters for: @novelTitle</h2>
+
+<a asp-controller="Chapters" asp-action="Create" asp-route-novelId="@novelId" class="btn btn-primary mb-3">Add Chapter</a>
+<a asp-controller="Novels" asp-action="Index" class="btn btn-secondary mb-3">Back to Novels</a>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info">This novel doesn't have any chapters yet.</div>
+}
+else
+{
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Created</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var chapter in Model)
+            {
+                <tr>
+                    <td>@chapter.Title</td>
+                    <td>@chapter.CreatedAt.ToLocalTime().ToString("g")</td>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@chapter.Id" class="btn btn-sm btn-info">View</a>
+                        <a asp-action="Edit" asp-route-id="@chapter.Id" class="btn btn-sm btn-secondary">Edit</a>
+                        <a asp-action="Delete" asp-route-id="@chapter.Id" class="btn btn-sm btn-danger">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+

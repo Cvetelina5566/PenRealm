@@ -1,0 +1,31 @@
+﻿@model PenRealm.Models.Chapter
+@{
+    ViewData["Title"] = "Create Chapter";
+}
+
+<h2>Create Chapter</h2>
+
+<form asp-action="Create" method="post">
+    <input type="hidden" name="novelId" value="@ViewBag.NovelId" />
+
+    <div class="form-group mb-3">
+        <label asp-for="Title" class="form-label"></label>
+        <input asp-for="Title" class="form-control" />
+        <span asp-validation-for="Title" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="Content" class="form-label"></label>
+        <textarea asp-for="Content" class="form-control" rows="10"></textarea>
+        <span asp-validation-for="Content" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Create</button>
+    <a asp-controller="Novels" asp-action="Details" asp-route-id="@ViewBag.NovelId" class="btn btn-secondary">Cancel</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+
+

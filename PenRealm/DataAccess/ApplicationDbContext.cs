@@ -13,6 +13,7 @@ namespace PenRealm.DataAccess
 
         public DbSet<Novel> Novels { get; set; }
         public DbSet<Chapter> Chapters { get; set; }
+        public DbSet<Poem> Poems { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

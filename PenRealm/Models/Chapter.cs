@@ -13,6 +13,7 @@ namespace PenRealm.Models
 
         [Required]
         public string Content { get; set; }
+        public DateTime CreatedAt { get; set; }
 
         [Required]
         public int NovelId { get; set; }

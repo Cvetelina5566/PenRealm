@@ -1,0 +1,28 @@
+﻿@model PenRealm.Models.Novel
+@{
+    ViewData["Title"] = "Delete Novel";
+}
+
+<h2>Delete Novel</h2>
+
+<h4>Are you sure you want to delete this novel?</h4>
+
+<div class="mb-3">
+    <strong>Title:</strong> @Model.Title
+</div>
+<div class="mb-3">
+    <strong>Description:</strong>
+    <div class="border p-2 bg-light">
+        @Model.Description
+    </div>
+</div>
+<div class="mb-3">
+    <strong>Created At:</strong> @Model.CreatedAt.ToLocalTime().ToString("f")
+</div>
+
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="Id" />
+    <button type="submit" class="btn btn-danger">Yes, Delete</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>
+

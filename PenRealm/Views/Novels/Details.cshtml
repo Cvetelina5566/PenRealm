@@ -1,0 +1,60 @@
+﻿@model PenRealm.Models.Novel
+@{
+    ViewData["Title"] = "Novel Details";
+}
+
+<h2>Novel Details</h2>
+
+<div class="mb-3">
+    <strong>Title:</strong> @Model.Title
+</div>
+
+<div class="mb-3">
+    <strong>Description:</strong>
+    <div class="border p-3 bg-light">
+        @Model.Description
+    </div>
+</div>
+
+<div class="mb-3">
+    <strong>Created At:</strong> @Model.CreatedAt.ToLocalTime().ToString("f")
+</div>
+
+<hr />
+
+<h3>Chapters</h3>
+
+<a asp-controller="Chapters" asp-action="Create" asp-route-novelId="@Model.Id" class="btn btn-primary mb-3">Add Chapter</a>
+
+@if (Model.Chapters == null || !Model.Chapters.Any())
+{
+    <div class="alert alert-info">This novel has no chapters yet.</div>
+}
+else
+{
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Created</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var chapter in Model.Chapters.OrderBy(c => c.Id))
+            {
+                <tr>
+                    <td>@chapter.Title</td>
+                    <td>@chapter.CreatedAt.ToLocalTime().ToString("g")</td>
+                    <td>
+                        <a asp-controller="Chapters" asp-action="Details" asp-route-id="@chapter.Id" class="btn btn-sm btn-info">View</a>
+                        <a asp-controller="Chapters" asp-action="Edit" asp-route-id="@chapter.Id" class="btn btn-sm btn-secondary">Edit</a>
+                        <a asp-controller="Chapters" asp-action="Delete" asp-route-id="@chapter.Id" class="btn btn-sm btn-danger">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<a asp-action="Index" class="btn btn-secondary">Back to List</a>

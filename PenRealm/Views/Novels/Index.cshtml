@@ -1,0 +1,41 @@
+﻿@model IEnumerable<PenRealm.Models.Novel>
+@{
+    ViewData["Title"] = "My Novels";
+}
+
+<h2 class="mt-4">My Novels</h2>
+
+<a asp-action="Create" class="btn btn-primary mb-3">Create New Novel</a>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info">You haven't written any novels yet.</div>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Created At</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var novel in Model)
+            {
+                <tr>
+                    <td>@novel.Title</td>
+                    <td>@(novel.Description?.Length > 100 ? novel.Description.Substring(0, 100) + "..." : novel.Description)</td>
+                    <td>@novel.CreatedAt.ToLocalTime().ToString("g")</td>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@novel.Id" class="btn btn-sm btn-info">Details</a>
+                        <a asp-action="Edit" asp-route-id="@novel.Id" class="btn btn-sm btn-secondary">Edit</a>
+                        <a asp-action="Delete" asp-route-id="@novel.Id" class="btn btn-sm btn-danger">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

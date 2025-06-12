@@ -16,7 +16,7 @@ namespace PenRealm.Models
 
         [Required]
         public string UserId { get; set; }
-
+        public DateTime CreatedAt { get; set; }
         [ForeignKey("UserId")]
         public ApplicationUser User { get; set; }
 
