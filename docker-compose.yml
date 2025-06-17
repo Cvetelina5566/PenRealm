@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  penrealm-app:
+    build:
+      context: ./PenRealm # Path to your project folder
+      dockerfile: Dockerfile
+    ports:
+      - "8080:80"
+    depends_on:
+      - postgres
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Host=postgres;Database=penrealm;Username=postgres;Password=postgres
+    networks:
+      - penrealm-network
+
+  postgres:
+    image: postgres:17
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: penreal
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - penrealm-network
+
+volumes:
+  postgres_data:
+
+
+networks:
+  penrealm-network:
